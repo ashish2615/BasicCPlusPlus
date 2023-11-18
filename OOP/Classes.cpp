@@ -95,7 +95,7 @@ int main() {
     ImplementOOP implementOop("c++", "Sharma");
     implementOop.practiceProgramming();
 
-    // Pointer of base class to derived class.
+    // Pointer of base class to the object of derived class.
     ObjectOrientedProgramming * ooPPtr = &useOOP;
     ObjectOrientedProgramming * oopPtr2 = &implementOop;
     ooPPtr->checkLearningPercent();
