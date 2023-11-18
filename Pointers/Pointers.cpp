@@ -126,6 +126,73 @@ void printNumbers(vector<int>& numbers){
     cout << endl;
 }
 
+int getMinValue(int inputArray[], int sizeOfArray){
+    int minValue = inputArray[0];
+    for (int i=1; i < sizeOfArray; i++) {
+        if (inputArray[i] < minValue)
+            minValue = inputArray[i];
+    }
+    return minValue;
+}
+
+int getMaxValue(int inputArray[], int sizeOfArray){
+    int maxValue = inputArray[0];
+    for (int i=1; i < sizeOfArray; i++) {
+        if (inputArray[i] > maxValue)
+            maxValue = inputArray[i];
+    }
+    return maxValue;
+}
+
+void getMinMaxValues(int inputArray[], int sizeOfArray, int* min, int* max) {
+    for (int i=1; i < sizeOfArray; i++) {
+        if (inputArray[i] > *max)
+            *max = inputArray[i];
+        if (inputArray[i] < *min)
+            *min = inputArray[i];
+    }
+}
+
+void dynamicArray(int size) {
+    // Create an array of the dynamic size
+    int* newArray = new int[size]; // Allocate memory to newArray.
+
+    for (int i = 0; i < size; i++) {
+        cout << "Array[" << i << "]";
+        cin >> newArray[i];
+    }
+
+    for (int i = 0; i < size; i++) {
+        cout << *(newArray + i) << endl;
+    }
+    // De-allocate memory from newArray once it is not required any more.
+    delete []newArray;
+    newArray = NULL;
+}
+
+void multiDimDynamicArray(int rows, int column) {
+    // Create a array of number of rows
+    int** table = new int*[rows];
+    // Create a new array for each row.
+    // How many column a row have
+    for (int i = 0; i < rows; i++) {
+        table[i] = new int[column];
+        // Create an array for each row i.e. how many element each array have.
+        for (int j = 0; j < column; j++) {
+            cout << "Array[" << i << "][" << j << "]" ;
+            cin >> table[i][j];
+        }
+    }
+
+    // De-allocate the memory
+    // We have to de-allocated each row first rather than whole table.
+    for (int i = 0; i < rows; i++) {
+        delete[] table[i];
+    }
+    delete[] table;
+    table = NULL;
+}
+
 
 int main() {
     Pointers pointer;
@@ -141,4 +208,26 @@ int main() {
     bool(*funcPtr1)(int, int) = descendingCompare;
     customSort(vectorNumbers1, funcPtr1);
     printNumbers(vectorNumbers1);
+
+    int(*functionPtr)() = functionPointer;
+    cout << functionPtr() << endl;
+    int(*functPtr1)(int, int) = funcPointer;
+    cout << functPtr1(4, 8) << endl;
+
+    int inputArray[] = {2,6,-7,9,4};
+    int inputArraySize = *(&inputArray + 1) - inputArray;
+    int minValue = getMinValue(inputArray, inputArraySize);
+    int maxValue = getMaxValue(inputArray, inputArraySize);
+    cout << "Minimun value in array is: " << minValue << endl;
+    cout << "Max value in array is: " << maxValue << endl;
+
+    // Passing the addressed to the functions.
+    int min = inputArray[0];
+    int max = inputArray[0];
+    getMinMaxValues(inputArray, inputArraySize, &min, &max);
+    cout << "Min value is: " << min << endl;
+    cout << "Max value is: " << max << endl;
+
+    dynamicArray(5);
+    multiDimDynamicArray(3, 4);
 }
